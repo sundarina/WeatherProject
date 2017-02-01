@@ -1,13 +1,24 @@
 import java.util.ArrayList;
 
+
 public class WeatherData implements Subject {
     private ArrayList observers;
     private float temperature;
     private float humidity;
     private float pressure;
+    private String cityName;
 
-    public WeatherData() {
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public WeatherData(String cityName) {
         observers = new ArrayList();
+        this.cityName = cityName;
     }
 
     public void registerObserver(Observer о) {
@@ -29,6 +40,7 @@ public class WeatherData implements Subject {
     }
 
     public void measurementsChanged() {
+
         notifyObservers();
     }
 
@@ -37,5 +49,17 @@ public class WeatherData implements Subject {
         this.humidity = humidity;
         this.pressure = pressure;
         measurementsChanged();
+    }
+
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public float getHumidity() {
+        return humidity;
+    }
+
+    public float getPressure() {
+        return pressure;
     }
 }
