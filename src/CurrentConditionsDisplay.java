@@ -6,7 +6,7 @@ public class CurrentConditionsDisplay implements Observer, DisplayElement {
 
     public void setWeatherData(Subject weatherData) {
         this.weatherData.removeObserver(this);
-        this.weatherData = weatherData; //ссылка мняется
+        this.weatherData = weatherData; //ссылка меняется
         weatherData.registerObserver(this); //для перерегистрации в новом прогнозе(датчика)
     }
 

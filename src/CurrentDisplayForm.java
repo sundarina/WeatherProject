@@ -15,6 +15,8 @@ public class CurrentDisplayForm extends JFrame implements Observer {
     private JTextField textFieldTemp;
     private JTextField textFieldHum;
     private JTextField textFieldPles;
+    private String city;
+
 
     /**
      * Launch the application.
@@ -32,15 +34,24 @@ public class CurrentDisplayForm extends JFrame implements Observer {
 		});
 	}*/
 
+    public void setWeatherData(Subject weatherData) {
+        this.weatherData.removeObserver(this);
+        this.weatherData = weatherData; //ссылка меняется
+        weatherData.registerObserver(this); //для перерегистрации в новом прогнозе(датчика)
+    }
+
+
+
     /**
      * Create the frame.
      */
     public CurrentDisplayForm(Subject weatherData) {
         this.weatherData = weatherData;
         weatherData.registerObserver(this);
-        setTitle("Current");
+
+        setTitle("Current Weather in " + ((WeatherData)weatherData).getCityName());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 215, 304);
+        setBounds(100, 100, 600, 304);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -51,30 +62,30 @@ public class CurrentDisplayForm extends JFrame implements Observer {
         panel.setLayout(null);
 
         textFieldTemp = new JTextField();
-        textFieldTemp.setBounds(96, 36, 86, 20);
+        textFieldTemp.setBounds(150, 36, 86, 20);
         panel.add(textFieldTemp);
         textFieldTemp.setColumns(10);
 
         textFieldHum = new JTextField();
         textFieldHum.setColumns(10);
-        textFieldHum.setBounds(96, 66, 86, 20);
+        textFieldHum.setBounds(150, 66, 86, 20);
         panel.add(textFieldHum);
 
         textFieldPles = new JTextField();
         textFieldPles.setColumns(10);
-        textFieldPles.setBounds(96, 97, 86, 20);
+        textFieldPles.setBounds(150, 97, 86, 20);
         panel.add(textFieldPles);
 
         JLabel lblTemp = new JLabel("Temperature");
-        lblTemp.setBounds(10, 39, 46, 14);
+        lblTemp.setBounds(10, 39, 100, 14);
         panel.add(lblTemp);
 
         JLabel lblHum = new JLabel("Humidity");
-        lblHum.setBounds(10, 69, 46, 14);
+        lblHum.setBounds(10, 69, 100, 14);
         panel.add(lblHum);
 
         JLabel lblPles = new JLabel("Plessure");
-        lblPles.setBounds(10, 100, 46, 14);
+        lblPles.setBounds(10, 99, 100, 14);
         panel.add(lblPles);
         setVisible(true);
     }
