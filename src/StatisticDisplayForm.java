@@ -85,22 +85,18 @@ public class StatisticDisplayForm extends JFrame implements Observer {
 
     @Override
     public void update(float temperature, float humidity, float pressure) {
-
-
-
-
         sum += temperature;
         num++;
 
-        if (temperature > maxTemp) {
+        if (temperature < maxTemp) {
             maxTemp = temperature;
 
-            textFieldMax.setText(Float.toString(maxTemp));
+            textFieldMax.setText(Float.toString(temperature));
         }
 
-        if (temperature < minTemp) {
+        if (temperature > minTemp) {
             minTemp = temperature;
-            textFieldMin.setText(Float.toString(minTemp));
+            textFieldMin.setText(Float.toString(temperature));
         }
 
         textFieldAverage.setText(sum/num + "");
